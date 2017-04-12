@@ -1,0 +1,6 @@
+[submodule "ResearchTools"]
+	path = ResearchTools
+	url = https://github.com/coallaoh/ResearchTools
+[submodule "caffe"]
+	path = caffe
+	url = https://github.com/BVLC/caffe
