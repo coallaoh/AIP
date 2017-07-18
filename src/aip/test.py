@@ -33,7 +33,7 @@ conf = dict(
 control = dict(
     # net: network
     # Choose from {AlexNet, VGG, GoogleNet, ResNet152}
-    net='ResNet152',
+    net='GoogleNet',
     # i_method: AIP variant
     # Choose from {FGV(equiv to GA), FGS(equiv to BI), GAMAN, FGV-S(equiv to GA-S), FGV-S(equiv to BI-S)}
     i_method='GAMAN',
@@ -42,6 +42,8 @@ control = dict(
     # alpha: step size
     # iter: number of gradient ascent iterations
     # norm: L2 ball size -- at each iteration, if the perturbation is larger than the designated size, it will be projected.
+    # Examples:
+    # FGV with "1_100_1000" corresponds to GA (see paper) with 100 iterations and eps=1000.
     i_conf="1_100_1000",
     # i_process: AIP robustification
     # Should be in the format {processingtype1}{ensemblesize1}_{processingtype2}{ensemblesize2}_{...}
@@ -758,14 +760,13 @@ def test_up(net, svm_w, testlist, labellist, conf, control, outdir):
                                                    l_pred_fool_postproc=l_pred_fool_postproc, L2=L2)
             if conf['printoutput']:
                 print("GT image label ........................ %d" % l_gt)
-                print("Original prediction ................... %d" % l_pred)
+                print("Clean image prediction ................ %d" % l_pred)
                 for neut_type in l_pred_neut.keys():
-                    print("Post neutralisation ................... {}: {}".format(neut_type, l_pred_neut[neut_type]))
-                print("Post fooling prediction ............... %d" % l_pred_fool)
-                print("Post fooling&proc ..................... %d" % l_pred_fool_postproc)
+                    print("Clean image + R's defense type %s ...... %d" % (neut_type, l_pred_neut[neut_type][-1]))
+                print("Perturbed image prediction ............ %d" % l_pred_fool)
+                print("Pert + Proc (resize & quantise) ....... %d" % l_pred_fool_postproc)
                 for neut_type in l_pred_fool_postproc_neut.keys():
-                    print("Post neutralisation ................... {}: {}".format(neut_type,
-                                                                                  l_pred_fool_postproc_neut[neut_type]))
+                    print("Pert + Proc + R's defense type %s ...... %d" % (neut_type, l_pred_fool_postproc_neut[neut_type][-1]))
                 print("||r||_2 = %2.2f" % L2)
 
             fooling_stats_i = dict(
