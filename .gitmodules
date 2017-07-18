@@ -4,3 +4,6 @@
 [submodule "caffe"]
 	path = caffe
 	url = https://github.com/BVLC/caffe
+[submodule "pynetbuilder"]
+	path = pynetbuilder
+	url = https://github.com/coallaoh/pynetbuilder.git
