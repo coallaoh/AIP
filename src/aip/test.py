@@ -802,17 +802,16 @@ def show_stat(fooling_stats):
     fooling_rate = ((l_gt == l_pred) & (l_gt != l_pred_fool)).sum() / float((l_gt == l_pred).sum()) * 100
 
     print('Norm             = %2.2f' % (r_norm))
-    print('Accuracy         = %2.2f' % (acc))
-    print('+ adversary      = %2.2f' % (acc_fool))
-    print('+ improc         = %2.2f' % (acc_fool_postproc))
-    print('New fooling rate = %2.2f' % (fooling_rate))
+    print('Clean image acc  = %2.2f' % (acc))
+    print('Pert image acc   = %2.2f' % (acc_fool))
+    print('Pert + Proc acc  = %2.2f' % (acc_fool_postproc))
 
     neut_types, how_many = control['e_process'].split('_')
     how_many = int(how_many)
     presentation_neut = {}
 
     if control['e_process'] is not None:
-        print('========= Neutralisation =========')
+        print("========= R's defense strategies =========")
         for idx_neut, neut_type in enumerate(neut_types + 'E'):
             if neut_type == 'O':
                 continue
@@ -825,7 +824,7 @@ def show_stat(fooling_stats):
             elif neut_type == 'C':
                 neut_name = 'Crop'
             elif neut_type == 'E':
-                neut_name = 'Altogether'
+                neut_name = 'Ensemble'
             else:
                 raise NotImplementedError
 
@@ -835,21 +834,8 @@ def show_stat(fooling_stats):
             acc_fool_postproc_neut = (np.tile(l_gt.reshape((-1, 1)), [1, how_many]) == l_pred_fool_postproc_neut).sum(
                 0) / float(len(l_gt)) * 100
 
-            for idx_en in range(how_many):
-                print('%10s accuracy ensemble %2d (no fool)     = %2.2f' % (neut_name, idx_en + 1, acc_neut[idx_en]))
-            for idx_en in range(how_many):
-                print('%10s accuracy ensemble %2d (fool)        = %2.2f' % (
-                    neut_name, idx_en + 1, acc_fool_postproc_neut[idx_en]))
-
-            presentation_neut[neut_type] = acc_fool_postproc_neut[-1]
-
-    # printout = [r_norm, acc_fool, acc_fool_postproc] + acc_postproc_neut
-    # print("a={}".format(printout))
-    if len(control['e_process']) > 3:
-        print("%2.1f & %2.1f & %2.1f & %2.1f & %2.1f & %2.1f" % (
-            acc_fool_postproc, presentation_neut['T'], presentation_neut['N'], presentation_neut['B'],
-            presentation_neut['C'], presentation_neut['E']))
-
+            print("Clean image + R's defense type %10s: %2.2f" % (neut_name, acc_neut[-1]))
+            print("Pert + Proc + R's defense type %10s: %2.2f" % (neut_name, acc_fool_postproc_neut[-1]))
     return
 
 
