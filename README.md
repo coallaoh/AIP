@@ -54,7 +54,7 @@ $ ./downloads.sh
 
 ## Running
 
-The script for computing the adversarial perturbations and evaluating the recognition success rates on the PIPA vallidation set is
+The script for computing different variants of adversarial perturbations in the paper and evaluating them against recogniser's defense measures on the PIPA vallidation set is
 
 ```bash
 $ ./src/aip/test.py
@@ -64,7 +64,13 @@ Before running it, please change the following variables according to your local
 
 * `liblinearpythonloc`: Liblinear Python library.
 
-Then, run the script on the command line.
+The script can then run on the command line. After computing the game table for every strategy pair (e.g. table 4 in the paper), the equilibrium (optimal) strategies and the value of the game is computed via `Nashpy` (https://github.com/drvinceknight/Nashpy). Run the script 
+
+```bash
+$ ./src/game/eq.py
+```
+
+to obtain the game theoretical results in the paper.
 
 ## Contact
 
