@@ -5,6 +5,7 @@ cycler==0.10.0
 decorator==4.1.1
 functools32==3.2.3-2
 matplotlib==2.0.2
+nashpy==0.0.10
 networkx==1.11
 olefile==0.44
 protobuf==3.3.0
