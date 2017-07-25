@@ -2,7 +2,7 @@
 
 __author__ = 'joon'
 
-import nashpy
+import nash
 import numpy as np
 
 p = np.array([
@@ -14,11 +14,11 @@ p = np.array([
     [0.7, 0.9, 5.2, 9.5, 3.2, 2.0]
 ])
 
-minimaxgame = nash.Game(p)
-eq = [e for e in minimaxgame.equilibria()]
+minimaxgame = nash.Game(-p)
+eq = [e for e in minimaxgame.vertex_enumeration()]
 roweq = eq[0][0]
 coleq = eq[0][1]
-value = np.dot(roweq, np.dot(table, coleq))
+value = np.dot(roweq, np.dot(p, coleq))
 
 print("Value of the game (privacy guarantee for U): %2.1f" % value)
 print("U's optimal strategy: {}".format(roweq))
