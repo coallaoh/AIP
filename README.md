@@ -74,7 +74,7 @@ to obtain the game theoretical results in the paper.
 
 ## Contact
 
-For any problem with implementation or bug, please contact [Seong Joon Oh](https://www.mpi-inf.mpg.de/departments/computer-vision-and-multimodal-computing/people/seong-joon-oh/) (joon at mpi-inf dot mpg dot de).
+For any problem with implementation or bug, please contact [Seong Joon Oh](https://seongjoonoh.com/) (coallaoh at gmail).
 
 ## Citation
 
